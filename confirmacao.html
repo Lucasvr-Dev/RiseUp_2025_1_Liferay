@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evento Criado - Liferay</title>
+    <link rel="stylesheet" href="confirmacao-style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="success-card">
+            <div class="success-icon">✓</div>
+            <h1>Evento Criado com Sucesso!</h1>
+            <p class="message">Seu evento foi cadastrado e já está disponível na plataforma.</p>
+            
+            <div class="event-details" id="eventDetails">
+                <!-- Detalhes do evento serão inseridos aqui pelo JavaScript -->
+            </div>
+
+            <div class="actions">
+                <button class="btn-primary" onclick="voltarInicio()">Voltar ao Início</button>
+                <button class="btn-secondary" onclick="criarOutro()">Criar Outro Evento</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="confirmacao-script.js"></script>
+</body>
+</html>
