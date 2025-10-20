@@ -1,0 +1,354 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    background: white;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    background: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.logo {
+    width: 223px;
+    height: 71px;
+    object-fit: contain;
+}
+
+.search-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.search-bar input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    outline: none;
+    color: #333;
+}
+
+.search-bar input::placeholder {
+    color: #BDBDC7;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-bar {
+    flex: 1;
+    max-width: 1000px;
+    min-width: 300px;
+    background: #F4F4F6;
+    border-radius: 40px;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.icon-btn {
+    width: 50px;
+    height: 50px;
+    background: #F5F7FA;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.icon-btn img {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+}
+
+.icon-btn:hover {
+    transform: scale(1.1);
+}
+
+.profile-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.user-name {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Profile Section */
+.profile-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin: 40px 0;
+    align-items: flex-start;
+}
+
+.profile-left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.profile-info h1 {
+    font-size: 48px;
+    font-weight: 600;
+    color: #1E2022;
+    margin-bottom: 10px;
+}
+
+.profile-info .role {
+    font-size: 28px;
+    opacity: 0.5;
+    color: black;
+}
+
+/* About Section */
+.about-section {
+    flex: 1;
+    min-width: 300px;
+}
+
+.about-section h2 {
+    font-size: 36px;
+    font-weight: 600;
+    color: #1E2022;
+    margin-bottom: 20px;
+}
+
+.description-label {
+    font-size: 28px;
+    opacity: 0.53;
+    margin-bottom: 15px;
+}
+
+.description-box {
+    background: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 7px;
+    border: 0.5px solid rgba(0, 0, 0, 0.20);
+    padding: 25px;
+    font-size: 22px;
+    line-height: 1.6;
+}
+
+/* Skills Section */
+.skills-section {
+    margin: 60px 0;
+}
+
+.skills-section h2 {
+    font-size: 36px;
+    font-weight: 600;
+    color: #1E2022;
+    margin-bottom: 30px;
+}
+
+.add-skill-label {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1E2022;
+    margin-bottom: 20px;
+}
+
+.add-skill-form {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.skill-input {
+    flex: 1;
+    min-width: 250px;
+    padding: 20px 30px;
+    border: 1px solid #1C1616;
+    border-radius: 50px;
+    font-size: 20px;
+    outline: none;
+}
+
+.add-btn {
+    padding: 20px 40px;
+    background: white;
+    border: 1px solid #1C1616;
+    border-radius: 50px;
+    font-size: 28px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.add-btn:hover {
+    background: #1327FD;
+    color: white;
+    border-color: #1327FD;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.skill-badge {
+    background: #ffffff;
+    border: 4px solid #9B9B9B;
+    border-radius: 50px;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 24px;
+    font-weight: 600;
+    position: relative;
+    transition: transform 0.2s;
+}
+
+.skill-badge:hover {
+    transform: translateY(-2px);
+}
+
+.skill-icon {
+    background-color: #ffff;
+    width: 40px;
+    height: 40px;
+    border-radius: 0%;
+    object-fit: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.delete-btn {
+    width: 30px;
+    height: 30px;
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.delete-btn:hover {
+    background: #cc0000;
+}
+
+/* Create Event Button */
+.create-event-btn {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    padding: 20px 50px;
+    background: #1327FD;
+    color: #F9FBFF;
+    border: 1px solid #1C1616;
+    border-radius: 200px;
+    font-size: 28px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(19, 39, 253, 0.3);
+}
+
+.create-event-btn:hover {
+    background: #0e1fcc;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(19, 39, 253, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .profile-section {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-bar {
+        max-width: 100%;
+    }
+
+    .profile-info h1 {
+        font-size: 36px;
+    }
+
+    .profile-info .role {
+        font-size: 20px;
+    }
+
+    .about-section h2,
+    .skills-section h2 {
+        font-size: 28px;
+    }
+
+    .create-event-btn {
+        bottom: 20px;
+        right: 20px;
+        padding: 15px 30px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-left {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .skill-badge {
+        font-size: 18px;
+        padding: 10px 20px;
+    }
+}
