@@ -47,8 +47,8 @@ function removeSkill(button) {
 }
 
 // Create event
-function createEvent() {
-    alert('Funcionalidade de criar evento em desenvolvimento! 🎉');
+function goToEvent() {
+    window.location.href = 'criar-evento.html';
 }
 
 // Add skill on Enter key
