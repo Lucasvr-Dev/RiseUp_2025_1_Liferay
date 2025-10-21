@@ -44,7 +44,6 @@
 
             <div class="about-section">
                 <h2>Sobre mim</h2>
-                <div class="description-label">Descrição:</div>
                 <div class="description-box">
                     Olá! Eu sou Ana Luisa, desenvolvedora full-stack sênior, focada em trazer soluções na área de front-end.
                     Apaixonada por design e desenvolvimento de interações. No meu tempo livre, gosto de ouvir músicas e praticar meu inglês.
@@ -52,33 +51,44 @@
             </div>
         </div>
 
-        <!-- Skills Section -->
-        <div class="skills-section">
-            <h2>Minhas habilidades</h2>
+        
             
+        <!-- Skills Section -->
+                    <div class="skills-section">
+        <div class="skills-row">
+            <div class="add-skill-container">
             <div class="add-skill-label">Adicionar nova habilidade:</div>
             <div class="add-skill-form">
                 <input type="text" id="skillInput" class="skill-input" placeholder="Ex: Java">
                 <button class="add-btn" onclick="addSkill()">Adicionar</button>
             </div>
+            </div>
 
+            <div class="skills-list-container">
+            <h2>Minhas habilidades</h2>
             <div class="skills-list" id="skillsList">
                 <div class="skill-badge">
-                    <img src="assets/icons/javascript-icon.png" alt="JS icon" class="skill-icon";>
-                    <span>Javascript</span>
-                    <button class="delete-btn" onclick="removeSkill(this)">×</button>
+                <img src="assets/icons/javascript-icon.png" alt="JS icon" class="skill-icon">
+                <span>Javascript</span>
+                <button class="delete-btn" onclick="removeSkill(this)">×</button>
                 </div>
                 <div class="skill-badge">
-                    <img src="assets/icons/react-icon.png" alt="React icon" class="skill-icon">
-                    <span>React</span>
-                    <button class="delete-btn" onclick="removeSkill(this)">×</button>
+                <img src="assets/icons/react-icon.png" alt="React icon" class="skill-icon">
+                <span>React</span>
+                <button class="delete-btn" onclick="removeSkill(this)">×</button>
                 </div>
                 <div class="skill-badge">
-                    <img src="assets/icons/next.js.png" alt="Next.js icon" class="skill-icon">
-                    <span>Next.js</span>
-                    <button class="delete-btn" onclick="removeSkill(this)">×</button>
+                <img src="assets/icons/next.js.png" alt="Next.js icon" class="skill-icon">
+                <span>Next.js</span>
+                <button class="delete-btn" onclick="removeSkill(this)">×</button>
                 </div>
             </div>
+            </div>
+        </div>
+        </div>
+
+
+           
         </div>
 
         <!-- Create Event Button -->

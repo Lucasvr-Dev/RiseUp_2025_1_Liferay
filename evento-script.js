@@ -39,6 +39,12 @@ function formatarData(data) {
     return partes[2] + '/' + partes[1] + '/' + partes[0];
 }
 
+// Função para ir para a página de confirmação
+/*function goToEvent() {
+    window.location.href = 'confirmacao.html';
+}
+*/
+
 // Definir data mínima como hoje
 document.addEventListener('DOMContentLoaded', function() {
     const hoje = new Date().toISOString().split('T')[0];
