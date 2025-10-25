@@ -42,7 +42,7 @@ document.getElementById('eventoForm').addEventListener('submit', async function(
 
         // Redirecionar de volta para a página principal
         setTimeout(() => {
-            window.location.href = 'index.html';
+            window.location.href = 'confirmacao.html';
         }, 1000);
 
     } catch (erro) {
