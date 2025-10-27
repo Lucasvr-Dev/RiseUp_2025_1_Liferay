@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registrar-se - Liferay</title>
+
+    <!-- Importa a fonte 'Source Sans Pro' do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Link para seu arquivo CSS externo -->
+    <link rel="stylesheet" href="criacao-conta.css" />
+  </head>
+  <body>
+    <div class="register-container">
+      <div class="register-card">
+        <div class="logo">
+          <!-- Por favor, atualize o 'src' para o caminho correto da sua logo --><img
+            src="/assets/logos/logo_liferay_semfundo.png"
+            alt="Logo Liferay"
+          />
+        </div>
+
+        <h1>Registrar-se</h1>
+
+        <form id="registerForm">
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required />
+            <!-- Campo com erro simulado para visualização --><!-- <input type="email" id="email" name="email" class="input-error" required> -->
+          </div>
+
+          <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" required />
+          </div>
+
+          <div class="form-group">
+            <label for="sobrenome">Sobrenome</label>
+            <input type="text" id="sobrenome" name="sobrenome" required />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Senha</label>
+            <div class="password-container">
+              <input type="password" id="password" name="password" required />
+              <span id="togglePassword" class="toggle-password">👁</span>
+            </div>
+          </div>
+
+          <div class="password-requirements">
+            <h4>Requisitos de senha:</h4>
+            <ul>
+              <li id="reqLength" class="inactive">
+                <span class="bullet">•</span> Ter no mínimo 8 caracteres
+              </li>
+            </ul>
+          </div>
+
+          <button type="submit" class="btn-primary">
+            <a class="vII" href="/homepage.html">Registra-se</a>
+          </button>
+        </form>
+
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <p>Já tem uma conta? <a href="#">Fazer login</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Link para seu arquivo JavaScript externo -->
+    <script src="criacao-conta.js"></script>
+  </body>
+</html>
