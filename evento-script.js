@@ -22,7 +22,7 @@ document
 
     try {
       // Enviar dados para o back-end
-      const resposta = await fetch("http://localhost:8080/api/eventos", {
+      const resposta = await fetch("http://localhost:8080/api/eventos/criar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
