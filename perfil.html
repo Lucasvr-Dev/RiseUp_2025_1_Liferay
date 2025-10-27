@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meu Perfil - Liferay</title>
+
+    <!-- Importa a fonte 'Source Sans Pro' do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Importa ícones do Font Awesome (essencial para ícones) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <!-- Link para seu arquivo CSS externo -->
+    <link rel="stylesheet" href="perfil.css" />
+  </head>
+  <body>
+    <!-- 1. HEADER (Cabeçalho Superior) - Reutilizado do dashboard -->
+    <header class="app-header">
+      <div class="logo">
+        <!-- Corrigido: Trocado caminho local por placeholder -->
+        <img src="/assets/logos/logo_liferay_semfundo.png" alt="Logo Liferay" />
+      </div>
+
+      <div class="search-bar">
+        <i class="fas fa-search search-icon"></i>
+        <input
+          type="text"
+          placeholder="Pesquise por habilidades ou colaboradores"
+        />
+      </div>
+
+      <nav class="user-nav">
+        <button class="button-icon" aria-label="Configurações">
+          <i class="fas fa-cog"></i>
+        </button>
+        <button
+          class="button-icon"
+          aria-label="Notificações"
+          data-notification="true"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <div class="user-profile">
+          <!-- Corrigido: Trocado caminho local por placeholder -->
+          <img
+            src="/assets/pictures/profile-pic.png"
+            alt="Foto de Perfil de Ana Luisa"
+          />
+          <span>Ana Luisa</span>
+        </div>
+      </nav>
+    </header>
+
+    <!-- 2. SIDEBAR (Navegação Lateral) - Reutilizada do dashboard -->
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="#" class="active">
+              <!-- Item ativo -->
+              <i class="fas fa-user"></i>
+              <span>Meu perfil</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fas fa-th-large"></i>
+              <span>Painel</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fas fa-star"></i>
+              <span>Minhas Habilidades</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fas fa-tasks"></i>
+              <span>Solicitações</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- 3. MAIN CONTENT (Conteúdo Principal da Página de Perfil) -->
+    <main class="main-content">
+      <!-- Cabeçalho do Perfil -->
+      <header class="profile-header">
+        <!-- Corrigido: Trocado caminho local por placeholder -->
+        <img
+          src="/assets/pictures/profile-pic.png"
+          alt="Foto de Ana Luisa"
+          class="profile-picture-large"
+        />
+        <div class="profile-info">
+          <h1>Ana Luisa</h1>
+          <p>Desenvolvedora full-stack</p>
+        </div>
+      </header>
+
+      <!-- Grid principal do perfil (Habilidades | Sobre Mim) -->
+      <div class="profile-grid">
+        <!-- Seção de Habilidades (Coluna Esquerda) -->
+        <section class="skills-section">
+          <h2>Minhas habilidades</h2>
+
+          <div class="add-skill-form">
+            <label for="skill-input">Adicionar nova habilidade:</label>
+            <div class="input-wrapper">
+              <input type="text" id="skill-input" placeholder="Ex: Python" />
+              <button id="add-skill-btn" class="btn-primary">Adicionar</button>
+            </div>
+          </div>
+
+          <!-- Lista de Habilidades (será preenchida pelo JS) -->
+          <div class="skills-list" id="skills-list">
+            <!-- Habilidades serão injetadas aqui pelo perfil.js -->
+          </div>
+        </section>
+
+        <!-- Seção Sobre Mim (Coluna Direita) -->
+        <aside class="about-section">
+          <div class="about-card">
+            <h3>Sobre mim</h3>
+            <p>
+              Olá! Eu sou Ana Luisa, desenvolvedora full-stack sênior, focada em
+              trazer soluções na área de front-end. Apaixonada por design e
+              desenvolvimento de interações. No meu tempo livre, gosto de ouvir
+              músicas e praticar meu inglês.
+            </p>
+          </div>
+        </aside>
+      </div>
+
+      <!-- 
+      Corrigido: O botão flutuante agora é uma tag <a> 
+      estilizada como botão. Isso é o HTML correto
+      para um botão que leva a outra página.
+    -->
+      <a href="/criar-evento.html" class="btn-float" id="create-event-btn">
+        Criar Evento
+      </a>
+    </main>
+
+    <!-- Link para seu arquivo JS externo -->
+    <script src="perfil.js"></script>
+  </body>
+</html>
