@@ -1,101 +1,86 @@
-// Espera o documento carregar completamente
-document.addEventListener("DOMContentLoaded", () => {
-  
-  // Seleciona os elementos principais
-  const skillInput = document.getElementById("skill-input");
-  const addSkillBtn = document.getElementById("add-skill-btn");
-  const skillsList = document.getElementById("skills-list");
+// Mapeamento de ícones por habilidade
+const skillIcons = {
+  javascript: '<i class="fab fa-js-square" style="color:#f7df1e;"></i>',
+  react: '<i class="fab fa-react" style="color:#61dafb;"></i>',
+  "next.js": '<i class="fa-brands fa-react" style="color:#000;"></i>',
+  python: '<i class="fab fa-python" style="color:#3776ab;"></i>',
+  java: '<i class="fab fa-java" style="color:#f89820;"></i>',
+  html: '<i class="fab fa-html5" style="color:#e34c26;"></i>',
+  css: '<i class="fab fa-css3-alt" style="color:#264de4;"></i>',
+  "node.js": '<i class="fab fa-node-js" style="color:#3c873a;"></i>',
+  git: '<i class="fab fa-git-alt" style="color:#f1502f;"></i>',
+  github: '<i class="fab fa-github"></i>',
+  typescript: '<i class="fab fa-js" style="color:#3178c6;"></i>',
+  "c++": '<i class="fab fa-cuttlefish" style="color:#00599C;"></i>',
+  "c#": '<i class="fas fa-hashtag" style="color:#68217a;"></i>',
+  php: '<i class="fab fa-php" style="color:#777bb3;"></i>',
+  sql: '<i class="fas fa-database" style="color:#4479A1;"></i>',
+};
 
-  // Habilidades iniciais baseadas na imagem
-  const initialSkills = ["Next.js", "React", "Javascript"];
+// Seletores principais
+const addSkillBtn = document.getElementById("add-skill-btn");
+const skillInput = document.getElementById("skill-input");
+const skillsList = document.getElementById("skills-list");
 
-  // --- Funções ---
+// Estado inicial (habilidades base, se quiser adicionar)
+const initialSkills = ["React", "Next.js", "JavaScript", "Python"];
 
-  /**
-   * Cria um elemento de habilidade (pill + botão de deletar)
-   * @param {string} name - O nome da habilidade
-   * @returns {HTMLElement} - O elemento <div> com a classe 'skill-item'
-   */
-  function createSkillElement(name) {
-    // Cria o container principal
-    const item = document.createElement("div");
-    item.className = "skill-item";
+// Funções principais
 
-    // Cria o "pill" da habilidade
-    const pill = document.createElement("div");
-    pill.className = "skill-pill";
+// Cria visualmente uma skill com ícone e botão de excluir
+function createSkillElement(skillName) {
+  const skillKey = skillName.toLowerCase();
+  const iconHTML =
+    skillIcons[skillKey] ||
+    '<i class="fas fa-code" style="color:#00318f;"></i>';
 
-    let icon = '';
-    const nameLower = name.toLowerCase();
+  const skillItem = document.createElement("div");
+  skillItem.classList.add("skill-item");
+  skillItem.innerHTML = `
+    <div class="skill-pill">
+      ${iconHTML}
+      <span>${skillName}</span>
+      <button class="delete-skill-btn" title="Remover"><i class="fas fa-times"></i></button>
+    </div>
+  `;
 
-    // Adiciona ícones com base no nome (simulando a imagem)
-    if (nameLower.includes("react")) {
-      // Ícone do React
-      icon = '<i class="fab fa-react"></i>';
-    } else if (nameLower.includes("javascript")) {
-      // Ícone do JavaScript
-      icon = '<i class="fab fa-js-square"></i>';
-    } else if (nameLower.includes("next")) {
-      // Simulação do logo Next.js
-      icon = '<strong class="next-logo">N</strong>';
-    }
-    
-    // Define o conteúdo do pill
-    pill.innerHTML = `${icon} <span>${name}</span>`;
+  // Evento para remover
+  skillItem.querySelector(".delete-skill-btn").addEventListener("click", () => {
+    skillItem.classList.add("fade-out");
+    setTimeout(() => skillItem.remove(), 250);
+  });
 
-    // Cria o botão de deletar (lixeira)
-    const deleteBtn = document.createElement("button");
-    deleteBtn.className = "delete-skill-btn";
-    deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
-    deleteBtn.setAttribute('aria-label', `Remover ${name}`);
+  return skillItem;
+}
 
-    // Adiciona o evento de clique para remover o item
-    deleteBtn.addEventListener("click", () => {
-      // Remove o 'skill-item' (pai do botão)
-      item.remove(); 
-    });
+// Adiciona nova habilidade
+function addSkill() {
+  const skillName = skillInput.value.trim();
+  if (skillName === "") return;
 
-    // Monta o elemento
-    item.appendChild(pill);
-    item.appendChild(deleteBtn);
+  const newSkill = createSkillElement(skillName);
+  newSkill.classList.add("fade-in");
+  skillsList.appendChild(newSkill);
+  skillInput.value = "";
+}
 
-    return item;
+// Eventos
+
+addSkillBtn.addEventListener("click", addSkill);
+
+// Permitir adicionar com Enter
+skillInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    addSkill();
   }
+});
 
-  /**
-   * Pega o valor do input, cria um novo elemento de habilidade e o adiciona à lista
-   */
-  function addSkill() {
-    const skillName = skillInput.value.trim(); // Pega o valor e remove espaços em branco
+// Inicialização
 
-    // Se o campo não estiver vazio
-    if (skillName !== "") {
-      const newSkill = createSkillElement(skillName); // Cria o novo elemento
-      skillsList.appendChild(newSkill); // Adiciona à lista
-      skillInput.value = ""; // Limpa o campo de input
-      skillInput.focus(); // Devolve o foco ao input
-    }
-  }
-
-  // --- Inicialização ---
-
-  // 1. Carrega as habilidades iniciais
-  initialSkills.forEach(skill => {
+window.addEventListener("DOMContentLoaded", () => {
+  initialSkills.forEach((skill) => {
     const skillElement = createSkillElement(skill);
     skillsList.appendChild(skillElement);
   });
-
-  // 2. Adiciona os "ouvintes" de evento
-  
-  // Ao clicar no botão "Adicionar"
-  addSkillBtn.addEventListener("click", addSkill);
-
-  // Ao pressionar "Enter" no campo de input
-  skillInput.addEventListener("keypress", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault(); // Impede o envio de formulário (caso esteja dentro de um <form>)
-      addSkill();
-    }
-  });
-
 });

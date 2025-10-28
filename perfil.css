@@ -19,15 +19,14 @@
 
 body {
   font-family: "Source Sans Pro", sans-serif;
-  background-color: var(--cor-branco); /* Fundo branco para o conteúdo */
+  background-color: var(--cor-branco);
   height: 100vh;
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  grid-template-rows: auto 1fr;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 }
 
-/* --- 1. Header (Reutilizado) --- */
+/* --- HEADER --- */
 .app-header {
   grid-column: 1 / -1;
   display: flex;
@@ -120,57 +119,30 @@ body {
   color: var(--cor-texto);
 }
 
-/* --- 2. Sidebar (Reutilizada) --- */
-.sidebar {
-  grid-row: 2;
-  padding: 30px 20px;
-  border-right: 1px solid var(--cor-borda);
-  background: var(--cor-branco);
-}
-
-.sidebar-nav ul {
-  list-style: none;
-}
-
-.sidebar-nav li a {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 12px 15px;
-  text-decoration: none;
-  color: var(--cor-texto-navegacao);
-  font-size: 16px;
-  border-radius: 8px;
-  margin-bottom: 8px;
-}
-
-.sidebar-nav li a i {
-  font-size: 18px;
-  width: 20px;
-  text-align: center;
-}
-
-.sidebar-nav li a:hover,
-.sidebar-nav li a.active {
-  background-color: #f0f5ff;
-  color: var(--cor-principal);
-  font-weight: 600;
-}
-
-/* --- 3. Conteúdo Principal (Estilos Específicos do Perfil) --- */
+/* --- CONTEÚDO PRINCIPAL --- */
 .main-content {
+  grid-column: 2 / 3;
   grid-row: 2;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* mantém o grid centralizado */
+  justify-content: flex-start;
   padding: 40px;
-  background-color: #fafafb; /* Fundo levemente cinza para o conteúdo */
+  background-color: #fafafb;
+  min-height: calc(100vh - 72px);
 }
 
 /* Cabeçalho do Perfil */
 .profile-header {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 20px;
+  width: 100%;
+  max-width: 1100px;
   margin-bottom: 40px;
+  text-align: left;
 }
 
 .profile-picture-large {
@@ -183,23 +155,24 @@ body {
 }
 
 .profile-info h1 {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--cor-texto);
 }
 
 .profile-info p {
-  font-size: 18px;
-  color: var(--cor-texto-navegacao);
-  font-weight: 600;
+  color: var(--cor-texto-claro);
+  font-size: 16px;
 }
 
 /* Grid do Perfil */
 .profile-grid {
+  width: 100%;
+  max-width: 1100px;
   display: grid;
-  grid-template-columns: 2fr 1fr; /* 2/3 para habilidades, 1/3 para "Sobre mim" */
+  grid-template-columns: 2fr 1fr;
   gap: 30px;
-  align-items: start; /* Alinha os cards no topo */
+  align-items: start;
 }
 
 /* Seção de Habilidades */
@@ -208,6 +181,7 @@ body {
   padding: 30px;
   border-radius: 8px;
   border: 1px solid var(--cor-borda);
+  text-align: left;
 }
 
 .skills-section h2 {
@@ -220,7 +194,7 @@ body {
 .add-skill-form label {
   display: block;
   font-weight: 600;
-  color: var(--cor-texto-label);
+  color: var(--cor-texto);
   margin-bottom: 10px;
 }
 
@@ -233,7 +207,7 @@ body {
   flex-grow: 1;
   padding: 12px 20px;
   border: 1px solid var(--cor-borda);
-  border-radius: 50px; /* Borda arredondada como na imagem */
+  border-radius: 50px;
   font-size: 16px;
 }
 
@@ -243,7 +217,7 @@ body {
   box-shadow: 0 0 0 3px rgba(0, 49, 143, 0.1);
 }
 
-/* Botão Primário */
+/* Botão */
 .btn-primary {
   padding: 12px 24px;
   border: none;
@@ -287,18 +261,26 @@ body {
   font-size: 20px;
   font-weight: 600;
   color: var(--cor-texto);
-  min-width: 150px; /* Largura mínima para os pills */
+  min-width: 150px;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.skill-pill i,
-.skill-pill strong {
-  font-size: 24px;
-  margin-right: 5px;
+/* 💡 Efeito ao passar o mouse */
+.skill-pill:hover {
+  transform: translateY(-3px);
+  border-color: var(--cor-principal);
+  box-shadow: 0 6px 14px rgba(0, 49, 143, 0.15);
+  background-color: #f8faff;
+  color: var(--cor-principal);
+  cursor:default;
+  transition: all 0.3s ease;
 }
 
-/* Cores específicas dos ícones */
+.skill-pill i {
+  font-size: 24px;
+}
+
 .skill-pill .fa-react {
   color: #61dafb;
 }
@@ -307,10 +289,8 @@ body {
   background: #000;
   border-radius: 4px;
 }
-.skill-pill .next-logo {
-  font-weight: 900;
-} /* Simulação logo Next.js */
 
+/* Botão de Excluir */
 .delete-skill-btn {
   background: none;
   border: none;
@@ -331,6 +311,7 @@ body {
   border-radius: 8px;
   padding: 24px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  text-align: left;
 }
 
 .about-card h3 {
@@ -343,16 +324,16 @@ body {
 .about-card p {
   font-size: 16px;
   line-height: 1.6;
-  color: var(--cor-texto-label);
+  color: var(--cor-texto);
 }
 
-/* Botão Flutuante (agora é uma tag <a>) */
+/* Botão Flutuante */
 .btn-float {
   position: fixed;
   bottom: 40px;
   right: 40px;
   background-color: var(--cor-principal);
-  color: var(--cor-branco); /* Garante que a cor do texto seja branca */
+  color: var(--cor-branco);
   border: none;
   border-radius: 50px;
   padding: 14px 28px;
@@ -361,8 +342,8 @@ body {
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 49, 143, 0.3);
   transition: all 0.3s ease;
+  text-decoration: none;
   z-index: 200;
-  text-decoration: none; /* Remove o sublinhado do link */
 }
 
 .btn-float:hover {
@@ -371,41 +352,26 @@ body {
   box-shadow: 0 6px 16px rgba(0, 49, 143, 0.3);
 }
 
-/* Responsividade */
+/* --- RESPONSIVIDADE --- */
 @media (max-width: 900px) {
-  /* No mobile, sidebar desaparece (requer JS para menu hamburger) */
-  /* e grid principal vira coluna única */
-
   body {
-    grid-template-columns: 1fr; /* Coluna única */
-    grid-template-rows: auto auto 1fr; /* Header, Sidebar, Conteúdo */
-  }
-
-  .sidebar {
-    /* Exemplo: esconder sidebar no mobile. */
-    /* Em um app real, isso seria controlado por JS. */
-    display: none;
-    grid-row: 2;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
   }
 
   .main-content {
-    grid-column: 1 / -1; /* Ocupa tudo */
-    grid-row: 3;
-    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 
   .profile-grid {
-    grid-template-columns: 1fr; /* Coluna única */
-  }
-
-  .about-section {
-    /* "Sobre mim" vem depois de "Habilidades" */
-    grid-row: 2;
+    grid-template-columns: 1fr;
+    max-width: 700px;
   }
 
   .btn-float {
     bottom: 20px;
     right: 20px;
-    /* A regra text-decoration: none; da classe principal já se aplica aqui */
   }
 }
