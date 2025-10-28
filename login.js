@@ -19,49 +19,63 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   if (loginForm) {
-    loginForm.addEventListener("submit", function (event) {
+    loginForm.addEventListener("submit", async function (event) {
       event.preventDefault();
 
       const username = usernameInput ? usernameInput.value.trim() : "";
       const password = passwordInput ? passwordInput.value.trim() : "";
 
-      /* if (username === '' || password === '') {
-                displayFeedback('Por favor, preencha o nome de usuário e a senha.', true);
-                
-                if (username === '' && usernameInput) {
-                    usernameInput.focus();
-                } else if (password === '' && passwordInput) {
-                    passwordInput.focus();
-                }
-                
-                return; 
-            }*/
+      if (username === "" || password === "") {
+        displayFeedback("Por favor, preencha o nome de usuário e a senha.", true);
+        return;
+      }
 
-      if (username === "admin" && password === "senha123") {
-        displayFeedback("Login bem-sucedido! Redirecionando...", false);
-      } else {
-        displayFeedback("Nome de usuário ou senha inválidos.", true);
+      try {
+        // 🔥 Envia o login e senha para o back-end
+        const response = await fetch("http://localhost:8080/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            login: username, // campo 'login' do LoginRequest (pode ser nome ou e-mail)
+            senha: password
+          })
+        });
+
+        const resultado = await response.text();
+
+        if (resultado.includes("sucesso")) {
+          displayFeedback("Login bem-sucedido! Redirecionando...", false);
+
+          // Redireciona após 2 segundos
+          setTimeout(() => {
+            window.location.href = "eventos.html"; // ou sua página principal
+          }, 2000);
+        } else {
+          displayFeedback("Nome de usuário ou senha inválidos.", true);
+        }
+      } catch (error) {
+        console.error("Erro ao conectar com o servidor:", error);
+        displayFeedback("Erro de conexão com o servidor.", true);
       }
     });
   }
 
+  // 👁 Alternar visibilidade da senha
   if (togglePasswordButton && passwordInput) {
     togglePasswordButton.addEventListener("click", () => {
       const type =
         passwordInput.getAttribute("type") === "password" ? "text" : "password";
       passwordInput.setAttribute("type", type);
 
-      if (type === "text") {
-        togglePasswordButton.textContent = "🙈";
-      } else {
-        togglePasswordButton.textContent = "👁";
-      }
-
+      togglePasswordButton.textContent = type === "text" ? "🙈" : "👁";
       passwordInput.focus();
     });
   }
 
+  // (Opcional) Ir para a home
   function goToHome() {
-    window.location.href = 'homepage.html';
-}
+    window.location.href = "homepage.html";
+  }
 });

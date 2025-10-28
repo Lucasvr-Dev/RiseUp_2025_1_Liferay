@@ -1,27 +1,46 @@
-// Função para voltar à página anterior
 function voltarPagina() {
   window.history.back();
 }
 
-// Validação e envio do formulário
+function converterDataParaISO(dataString) {
+  if (!dataString) return null;
+
+  const partes = dataString.split("/");
+
+  if (partes.length === 3) {
+    return `${partes[2]}-${partes[1]}-${partes[0]}`;
+  }
+
+  return dataString;
+}
+
 document
   .getElementById("eventoForm")
   .addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    // Coletar dados do formulário
+    const dataInput = document.getElementById("data").value;
+    const horaInput = document.getElementById("hora").value;
+
     const formData = {
       nome: document.getElementById("nomeEvento").value,
       descricao: document.getElementById("descricao").value,
-      data: document.getElementById("data").value,
-      hora: document.getElementById("hora").value,
+
+      data: converterDataParaISO(dataInput),
+
+      hora: horaInput + ":00",
+
       local: document.getElementById("local").value,
       categoria: document.getElementById("categoria").value,
-      vagas: document.getElementById("vagas").value,
+
+      vagas: document.getElementById("vagas").value
+        ? parseInt(document.getElementById("vagas").value)
+        : null,
     };
 
+    console.log("Dados enviados (JSON):", formData);
+
     try {
-      // Enviar dados para o back-end
       const resposta = await fetch("http://localhost:8080/api/eventos/criar", {
         method: "POST",
         headers: {
@@ -31,27 +50,24 @@ document
       });
 
       if (!resposta.ok) {
-        throw new Error("Erro ao criar evento");
+        const erroDetalhado = await resposta
+          .json()
+          .catch(() => ({ message: resposta.statusText }));
+        console.error("Erro do servidor:", erroDetalhado);
+        throw new Error(
+          "Falha ao criar evento. Detalhes: " + erroDetalhado.message
+        );
       }
-
-      const resultado = await resposta.json();
-
-      // Mostrar mensagem de sucesso
 
       window.location.href = "confirmacao.html";
     } catch (erro) {
-      console.error("Erro:", erro);
-      alert("Ocorreu um erro ao criar o evento. Tente novamente.");
+      console.error("Erro na requisição:", erro);
+      alert(
+        "Ocorreu um erro ao criar o evento. Verifique o console do navegador para mais detalhes."
+      );
     }
   });
 
-// Função auxiliar para formatar data
-function formatarData(data) {
-  const partes = data.split("-");
-  return partes[2] + "/" + partes[1] + "/" + partes[0];
-}
-
-// Definir data mínima como hoje
 document.addEventListener("DOMContentLoaded", function () {
   const hoje = new Date().toISOString().split("T")[0];
   document.getElementById("data").setAttribute("min", hoje);
