@@ -48,7 +48,7 @@ function capitalize(str) {
 // Voltar para a página inicial
 function voltarInicio() {
     localStorage.removeItem('eventoRecemCriado');
-    window.location.href = 'index.html';
+    window.location.href = 'homepage.html';
 }
 
 // Criar outro evento
