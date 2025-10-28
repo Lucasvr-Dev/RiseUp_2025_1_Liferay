@@ -1,4 +1,4 @@
-# 🚀 RiseUp 2025.1 - Liferay
+# 🚀 RiseUp 2025.2 - Liferay
 
 > Sistema web de gerenciamento de perfis, habilidades e eventos desenvolvido como parte do programa RiseUp 2025.1.
 
