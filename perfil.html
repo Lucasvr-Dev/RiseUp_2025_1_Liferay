@@ -3,7 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meu Perfil - Liferay</title>
+    <title>Meu Perfil</title>
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="assets/logos/title_logo_liferay.png"
+    />
 
     <!-- Importa a fonte 'Source Sans Pro' do Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,14 +26,15 @@
     />
 
     <!-- Link para seu arquivo CSS externo -->
-    <link rel="stylesheet" href="perfil.css" />
+    <link rel="stylesheet" href="css/perfil.css" />
   </head>
   <body>
     <!-- 1. HEADER (Cabeçalho Superior) - Reutilizado do dashboard -->
     <header class="app-header">
       <div class="logo">
-        <!-- Corrigido: Trocado caminho local por placeholder -->
-        <img src="/assets/logos/logo_liferay_semfundo.png" alt="Logo Liferay" />
+        <a href="homepage.html">
+          <img src="/assets/logos/logo_liferay_semfundo.png" alt="Logo Liferay" />
+        </a>
       </div>
 
       <div class="search-bar">
@@ -59,8 +66,6 @@
         </div>
       </nav>
     </header>
-
-   
 
     <!-- 3. MAIN CONTENT (Conteúdo Principal da Página de Perfil) -->
     <main class="main-content">
@@ -112,17 +117,13 @@
         </aside>
       </div>
 
-      <!-- 
-      Corrigido: O botão flutuante agora é uma tag <a> 
-      estilizada como botão. Isso é o HTML correto
-      para um botão que leva a outra página.
-    -->
+      <!-- Corrigido: O botão flutuante -->
       <a href="/criar-evento.html" class="btn-float" id="create-event-btn">
         Criar Evento
       </a>
     </main>
 
     <!-- Link para seu arquivo JS externo -->
-    <script src="perfil.js"></script>
+    <script src="js/perfil.js"></script>
   </body>
 </html>
