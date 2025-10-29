@@ -1,75 +1,113 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Evento - Liferay</title>
-    <link rel="stylesheet" href="evento-style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Criar Evento</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="assets/logos/title_logo_liferay.png"
+    />
+    <link rel="stylesheet" href="css/evento-style.css" />
+  </head>
+  <body>
     <div class="container">
-        <!-- Header -->
-        <header>
-            <img src="assets/logos/liferay-logo-full.svg" alt="Logo Liferay" class="logo">
-            <h1>Criar novo evento</h1>
-        </header>
+      <!-- Header -->
+      <header>
+        <a href="homepage.html">
+          <img
+            src="assets/logos/liferay-logo-full.svg"
+            alt="Logo Liferay"
+            class="logo"
+          />
+        </a>
+        <h1>Criar novo evento</h1>
+      </header>
 
-        <!-- Formulário -->
-        <div class="form-container">
-            <form id="eventoForm">
-                <div class="form-group">
-                    <label for="nomeEvento">Nome do Evento *</label>
-                    <input type="text" id="nomeEvento" name="nomeEvento" placeholder="Ex: Workshop de React" required>
-                </div>
+      <!-- Formulário -->
+      <div class="form-container">
+        <form id="eventoForm">
+          <div class="form-group">
+            <label for="nomeEvento">Nome do Evento *</label>
+            <input
+              type="text"
+              id="nomeEvento"
+              name="nomeEvento"
+              placeholder="Ex: Workshop de React"
+              required
+            />
+          </div>
 
-                <div class="form-group">
-                    <label for="descricao">Descrição *</label>
-                    <textarea id="descricao" name="descricao" rows="4" placeholder="Descreva o evento..." required></textarea>
-                </div>
+          <div class="form-group">
+            <label for="descricao">Descrição *</label>
+            <textarea
+              id="descricao"
+              name="descricao"
+              rows="4"
+              placeholder="Descreva o evento..."
+              required
+            ></textarea>
+          </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="data">Data *</label>
-                        <input type="date" id="data" name="data" required>
-                    </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="data">Data *</label>
+              <input type="date" id="data" name="data" required />
+            </div>
 
-                    <div class="form-group">
-                        <label for="hora">Hora *</label>
-                        <input type="time" id="hora" name="hora" required>
-                    </div>
-                </div>
+            <div class="form-group">
+              <label for="hora">Hora *</label>
+              <input type="time" id="hora" name="hora" required />
+            </div>
+          </div>
 
-                <div class="form-group">
-                    <label for="local">Local</label>
-                    <input type="text" id="local" name="local" placeholder="Ex: Sala 201, Online, etc.">
-                </div>
+          <div class="form-group">
+            <label for="local">Local</label>
+            <input
+              type="text"
+              id="local"
+              name="local"
+              placeholder="Ex: Sala 201, Online, etc."
+            />
+          </div>
 
-                <div class="form-group">
-                    <label for="categoria">Categoria *</label>
-                    <select id="categoria" name="categoria" required>
-                        <option value="">Selecione uma categoria</option>
-                        <option value="workshop">Workshop</option>
-                        <option value="palestra">Palestra</option>
-                        <option value="mentoria">Mentoria</option>
-                        <option value="networking">Networking</option>
-                        <option value="treinamento">Treinamento</option>
-                        <option value="outro">Outro</option>
-                    </select>
-                </div>
+          <div class="form-group">
+            <label for="categoria">Categoria *</label>
+            <select id="categoria" name="categoria" required>
+              <option value="">Selecione uma categoria</option>
+              <option value="workshop">Workshop</option>
+              <option value="palestra">Palestra</option>
+              <option value="mentoria">Mentoria</option>
+              <option value="networking">Networking</option>
+              <option value="treinamento">Treinamento</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
 
-                <div class="form-group">
-                    <label for="vagas">Número de Vagas</label>
-                    <input type="number" id="vagas" name="vagas" min="1" placeholder="Ex: 50">
-                </div>
+          <div class="form-group">
+            <label for="vagas">Número de Vagas</label>
+            <input
+              type="number"
+              id="vagas"
+              name="vagas"
+              min="1"
+              placeholder="Ex: 50"
+            />
+          </div>
 
-                <div class="form-actions">
-                    <button type="button" class="btn-cancelar" onclick="voltarPagina()">Cancelar</button>
-                    <button type="submit" class="btn-criar" onclick="goToEvent()">Criar Evento</button>
-                </div>
-            </form>
-        </div>
+          <div class="form-actions">
+            <button type="button" class="btn-cancelar" onclick="voltarPagina()">
+              Cancelar
+            </button>
+            <button type="submit" class="btn-criar" onclick="goToEvent()">
+              Criar Evento
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
 
-    <script src="evento-script.js"></script>
-</body>
+    <script src="js/evento-script.js"></script>
+  </body>
 </html>
