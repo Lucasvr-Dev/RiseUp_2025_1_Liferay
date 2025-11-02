@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrição Confirmada - Liferay</title>
+    <link rel="icon" type="image/png" href="assets/logos/title_logo_liferay.png"/>
+    <link rel="stylesheet" href="css/confirmacao-style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="success-card">
+            <div class="success-icon">
+                <i class="checkmark">✓</i>
+            </div>
+            <h1>Inscrição Confirmada!</h1>
+            <p class="message">Parabéns! Você foi inscrito com sucesso no evento.</p>
+            
+            <div class="event-details" id="inscricaoDetails">
+                <!-- Detalhes serão preenchidos pelo JavaScript -->
+            </div>
+
+            <div class="info-box">
+                <p><strong>📧 Confirmação enviada!</strong></p>
+                <p>Um e-mail de confirmação foi enviado para você com todos os detalhes do evento.</p>
+            </div>
+
+            <div class="actions">
+                <button class="btn-primary" onclick="voltarEventos()">Ver Todos os Eventos</button>
+                <button class="btn-secondary" onclick="verMinhasInscricoes()">Minhas Inscrições</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/inscricao-confirmacao.js"></script>
+</body>
+</html>

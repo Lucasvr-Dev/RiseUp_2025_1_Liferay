@@ -8,7 +8,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Configura cada carrossel individualmente
   // Isso permite que ambos "Próximos eventos" e "Cursos" funcionem de forma independente
   carousels.forEach(setupCarousel);
+  tornarCardsClicaveis();
 });
+
+
 
 /**
  * Configura um único carrossel.
@@ -142,3 +145,38 @@ function setupCarousel(carousel) {
   });
   
 }
+
+function tornarCardsClicaveis() {
+    const cards = document.querySelectorAll('.card');
+    
+    cards.forEach((card, index) => {
+        // Simula IDs de eventos (em produção, viriam do backend)
+        const eventoId = index + 1;
+        
+        // Adiciona cursor pointer
+        card.style.cursor = 'pointer';
+        
+        // Adiciona evento de clique
+        card.addEventListener('click', function() {
+            window.location.href = `detalhes-evento.html?id=${eventoId}`;
+        });
+        
+        // Adiciona efeito hover
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+            this.style.transition = 'transform 0.3s';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+}
+
+// Chama a função após carregar a página
+document.addEventListener('DOMContentLoaded', () => {
+    // ... código existente do carrossel ...
+    
+    // Adiciona funcionalidade de clique nos cards
+    tornarCardsClicaveis();
+});
