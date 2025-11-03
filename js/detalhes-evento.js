@@ -156,7 +156,7 @@ async function inscreverEvento() {
 }
 
 // Redireciona para página de confirmação
-function mostrarConfirmacaoInscricao(evento) {
+function mostrarConfirmacaoInscricao(evento) {  
     // Salva dados da inscrição
     localStorage.setItem('inscricaoRealizada', JSON.stringify({
         eventoNome: evento.nome,
