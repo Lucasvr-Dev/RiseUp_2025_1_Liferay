@@ -32,12 +32,34 @@ async function carregarDetalhesEvento(eventoId) {
 }
 
 // Preenche as informações do evento
+// Preenche as informações do evento
+// Preenche as informações do evento
+// Preenche as informações do evento
 function preencherDetalhesEvento(evento) {
     document.getElementById('eventName').textContent = evento.nome;
     document.getElementById('eventDescription').textContent = evento.descricao;
     document.getElementById('eventDate').textContent = formatarData(evento.data);
     document.getElementById('eventTime').textContent = evento.hora.substring(0, 5);
     document.getElementById('eventLocation').textContent = evento.local;
+    
+    // ✅ 1. PREENCHENDO A CATEGORIA
+    const categoryElement = document.getElementById('eventCategory');
+    if (categoryElement) {
+        categoryElement.textContent = evento.categoria || '-';
+    }
+
+    // ✅ 2. PREENCHENDO AS VAGAS (Usando o campo 'evento.vagas')
+    const vagasElement = document.getElementById('eventVagas');
+    if (vagasElement) {
+        const vagas = evento.vagas; 
+        
+        // Verifica se 'vagas' é um número válido e formata a string de exibição
+        const textoVagas = (vagas !== undefined && vagas !== null && vagas >= 0)
+            ? `${vagas} vagas` 
+            : '- vagas'; // Se for null ou indefinido, mostra o valor padrão
+            
+        vagasElement.textContent = textoVagas;
+    }
 }
 
 // Verifica se o usuário já está inscrito
