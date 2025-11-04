@@ -4,12 +4,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const passwordInput = document.getElementById("password");
   const togglePasswordButton = document.getElementById("togglePassword");
 
+  // ATENÇÃO: Os dados de login corretos estão aqui.
+  // QUALQUER UM PODE VER ISSO NO CÓDIGO-FONTE.
+  const CORRETO_LOGIN = "analuisa04@liferay.com";
+  const CORRETA_SENHA = "12345678";
+
   const displayFeedback = (message, isError = true) => {
+    // ... (Sua função de feedback está ótima, mantive igual)
     const feedbackElement = document.getElementById("feedbackMessage");
     if (feedbackElement) {
       feedbackElement.textContent = message;
       feedbackElement.style.color = isError ? "red" : "green";
-
       setTimeout(() => {
         feedbackElement.textContent = "";
       }, 3000);
@@ -19,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   if (loginForm) {
-    loginForm.addEventListener("submit", async function (event) {
+    loginForm.addEventListener("submit", function (event) {
       event.preventDefault();
 
       const username = usernameInput ? usernameInput.value.trim() : "";
@@ -30,52 +35,34 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      try {
-        // 🔥 Envia o login e senha para o back-end
-        const response = await fetch("http://localhost:8080/api/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            login: username, // campo 'login' do LoginRequest (pode ser nome ou e-mail)
-            senha: password
-          })
-        });
+      // 🔥 CORREÇÃO: Verificação feita aqui no JavaScript
+      if (username === CORRETO_LOGIN && password === CORRETA_SENHA) {
+        
+        // Se o login estiver correto, nós "fingimos" um login
+        // salvando um "passe" (token) no navegador.
+        localStorage.setItem("authToken", "usuario_logado_com_sucesso"); // Pode ser qualquer valor
 
-        const resultado = await response.text();
+        displayFeedback("Login bem-sucedido! Redirecionando...", false);
 
-        if (resultado.includes("sucesso")) {
-          displayFeedback("Login bem-sucedido! Redirecionando...", false);
+        setTimeout(() => {
+          window.location.href = "homepage.html"; // Redireciona para a página restrita
+        }, 2000);
 
-          // Redireciona após 2 segundos
-          setTimeout(() => {
-            window.location.href = "eventos.html"; // ou sua página principal
-          }, 2000);
-        } else {
-          displayFeedback("Nome de usuário ou senha inválidos.", true);
-        }
-      } catch (error) {
-        console.error("Erro ao conectar com o servidor:", error);
-        displayFeedback("Erro de conexão com o servidor.", true);
+      } else {
+        // Se o login estiver errado
+        displayFeedback("Nome de usuário ou senha inválidos.", true);
       }
     });
   }
 
-  // 👁 Alternar visibilidade da senha
+  // ... (Sua função 'togglePasswordButton' está ótima, mantive igual)
   if (togglePasswordButton && passwordInput) {
     togglePasswordButton.addEventListener("click", () => {
       const type =
         passwordInput.getAttribute("type") === "password" ? "text" : "password";
       passwordInput.setAttribute("type", type);
-
       togglePasswordButton.textContent = type === "text" ? "🙈" : "👁";
       passwordInput.focus();
     });
-  }
-
-  // (Opcional) Ir para a home
-  function goToHome() {
-    window.location.href = "homepage.html";
   }
 });
