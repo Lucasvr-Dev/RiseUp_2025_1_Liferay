@@ -1,68 +1,75 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const loginForm = document.getElementById("loginForm");
-  const usernameInput = document.getElementById("username");
-  const passwordInput = document.getElementById("password");
-  const togglePasswordButton = document.getElementById("togglePassword");
+    // 1. IDs CORRIGIDOS para bater com seu HTML
+    const loginForm = document.getElementById("loginForm");
+    const loginInput = document.getElementById("username");
+    const senhaInput = document.getElementById("password");
+    const feedbackMessage = document.getElementById("feedbackMessage");
+    const togglePassword = document.getElementById("togglePassword"); // Bônus: para o olho
 
-  // ATENÇÃO: Os dados de login corretos estão aqui.
-  // QUALQUER UM PODE VER ISSO NO CÓDIGO-FONTE.
-  const CORRETO_LOGIN = "analuisa04@liferay.com";
-  const CORRETA_SENHA = "12345678";
-
-  const displayFeedback = (message, isError = true) => {
-    // ... (Sua função de feedback está ótima, mantive igual)
-    const feedbackElement = document.getElementById("feedbackMessage");
-    if (feedbackElement) {
-      feedbackElement.textContent = message;
-      feedbackElement.style.color = isError ? "red" : "green";
-      setTimeout(() => {
-        feedbackElement.textContent = "";
-      }, 3000);
-    } else {
-      console.log(message);
-    }
-  };
-
-  if (loginForm) {
-    loginForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-
-      const username = usernameInput ? usernameInput.value.trim() : "";
-      const password = passwordInput ? passwordInput.value.trim() : "";
-
-      if (username === "" || password === "") {
-        displayFeedback("Por favor, preencha o nome de usuário e a senha.", true);
+    // Se o formulário não for encontrado, pare para evitar erros
+    if (!loginForm) {
+        console.error("Erro: Formulário com ID 'loginForm' não encontrado.");
         return;
-      }
+    }
 
-      // 🔥 CORREÇÃO: Verificação feita aqui no JavaScript
-      if (username === CORRETO_LOGIN && password === CORRETA_SENHA) {
+    // 2. Evento de "submit" no formulário
+    loginForm.addEventListener("submit", async (event) => {
         
-        // Se o login estiver correto, nós "fingimos" um login
-        // salvando um "passe" (token) no navegador.
-        localStorage.setItem("authToken", "usuario_logado_com_sucesso"); // Pode ser qualquer valor
+        // Impede o formulário de recarregar a página
+        event.preventDefault(); 
+        
+        // Limpa mensagens de erro antigas
+        feedbackMessage.textContent = "";
 
-        displayFeedback("Login bem-sucedido! Redirecionando...", false);
+        // 3. Coleta de dados com os IDs CORRIGIDOS
+        const loginData = {
+            login: loginInput.value,
+            senha: senhaInput.value
+        };
 
-        setTimeout(() => {
-          window.location.href = "homepage.html"; // Redireciona para a página restrita
-        }, 2000);
+        try {
+            const response = await fetch("http://localhost:8080/api/auth/login", {
+                
+                // 4. GARANTE O MÉTODO "POST" (A CORREÇÃO DO ERRO 405)
+                method: "POST", 
+                
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(loginData) 
+            });
 
-      } else {
-        // Se o login estiver errado
-        displayFeedback("Nome de usuário ou senha inválidos.", true);
-      }
+            if (response.ok) {
+                // SUCESSO
+                const data = await response.json();
+                localStorage.setItem("authToken", data.token);
+                // Redireciona para a homepage
+                window.location.href = "homepage.html"; 
+
+            } else {
+                // FALHA (ex: 401 - Senha errada)
+                const errorText = await response.text();
+                feedbackMessage.textContent = errorText; // Mostra o erro do back-end
+                feedbackMessage.style.color = "red";
+            }
+
+        } catch (error) {
+            // FALHA DE REDE (ex: back-end desligado)
+            console.error("Erro na requisição:", error);
+            feedbackMessage.textContent = "Não foi possível conectar ao servidor.";
+            feedbackMessage.style.color = "red";
+        }
     });
-  }
 
-  // ... (Sua função 'togglePasswordButton' está ótima, mantive igual)
-  if (togglePasswordButton && passwordInput) {
-    togglePasswordButton.addEventListener("click", () => {
-      const type =
-        passwordInput.getAttribute("type") === "password" ? "text" : "password";
-      passwordInput.setAttribute("type", type);
-      togglePasswordButton.textContent = type === "text" ? "🙈" : "👁";
-      passwordInput.focus();
-    });
-  }
+    // 5. Bônus: Script para o olho de mostrar/esconder senha
+    if (togglePassword) {
+        togglePassword.addEventListener("click", () => {
+            // Verifica o tipo do input de senha
+            const type = senhaInput.getAttribute("type") === "password" ? "text" : "password";
+            senhaInput.setAttribute("type", type);
+            
+            // Muda o ícone do olho
+            togglePassword.textContent = type === "password" ? "👁" : "🙈";
+        });
+    }
 });
