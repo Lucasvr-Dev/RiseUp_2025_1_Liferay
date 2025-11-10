@@ -1,98 +1,93 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Evento - Liferay</title>
-    <link rel="icon" type="image/png" href="assets/logos/title_logo_liferay.png"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-    <link rel="stylesheet" href="css/detalhes-evento.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Evento - Liferay</title>
+    <link rel="icon" type="image/png" href="assets/logos/title_logo_liferay.png"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <link rel="stylesheet" href="css/detalhes-evento.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="app-header">
-        <div class="logo">
-            <a href="homepage.html">
-                <img src="assets/logos/logo_liferay_semfundo.png" alt="Logo Liferay"/>
-            </a>
-        </div>
+        <header class="app-header">
+        <div class="logo">
+            <a href="homepage.html">
+                <img src="assets/logos/logo_liferay_semfundo.png" alt="Logo Liferay"/>
+            </a>
+        </div>
 
-        <div class="search-bar">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" placeholder="Pesquise por habilidades ou colaboradores"/>
-        </div>
+        <div class="search-bar">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" placeholder="Pesquise por habilidades ou colaboradores"/>
+        </div>
 
-        <nav class="user-nav">
-            <button class="button-icon" aria-label="Configurações">
-                <i class="fas fa-cog"></i>
-            </button>
-            <button class="button-icon" aria-label="Notificações" data-notification="true">
-                <i class="fas fa-bell"></i>
-            </button>
-            <div class="user-profile">
-                <a href="perfil.html">
-                    <img src="assets/pictures/profile-pic.png" alt="foto de perfil"/>
-                </a>
-                <span>Ana Luisa</span>
-            </div>
-        </nav>
-    </header>
+        <nav class="user-nav">
+            <button class="button-icon" aria-label="Configurações">
+                <i class="fas fa-cog"></i>
+            </button>
+            <button class="button-icon" aria-label="Notificações" data-notification="true">
+                <i class="fas fa-bell"></i>
+            </button>
+                        <div class="user-profile">
+                <a href="perfil.html">
+                    <img id="user-avatar" src="assets/pictures/profile-pic.png" alt="foto de perfil"/>
+                </a>
+                <span id="user-name">Carregando...</span>
+            </div>
+        </nav>
+    </header>
 
-    <!-- Conteúdo Principal -->
-    <main class="main-content">
-        <div class="event-container">
-            <!-- Banner do Evento -->
-            <div class="event-banner">
-                <img id="eventImage" src="assets/pictures/liferay-devcon.jpg" alt="Banner do Evento">
-            </div>
+        <main class="main-content">
+        <div class="event-container">
+                        <div class="event-banner">
+                <img id="eventImage" src="assets/pictures/liferay-devcon.jpg" alt="Banner do Evento">
+            </div>
 
-            <!-- Informações do Evento -->
-            <div class="event-details">
-                <h1 id="eventName">Carregando...</h1>
-                
-                <div class="event-meta">
-                    <div class="meta-item">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span id="eventDate">--/--/----</span>
-                    </div>
-                    <div class="meta-item">
-                        <i class="fas fa-clock"></i>
-                        <span id="eventTime">--:--</span>
-                    </div>
-                    <div class="meta-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span id="eventLocation">-</span>
-                    </div>
-                    <div class="meta-item">
-                        <i class="fas fa-tag"></i>
-                        <span id="eventCategory">-</span>
-                    </div>
-                    <div class="meta-item">
-                        <i class="fas fa-users"></i>
-                        <span id="eventVagas">- vagas</span>
-                    </div>
-                </div>
+                        <div class="event-details">
+                <h1 id="eventName">Carregando...</h1>
+                
+                <div class="event-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span id="eventDate">--/--/----</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span id="eventTime">--:--</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span id="eventLocation">-</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-tag"></i>
+                        <span id="eventCategory">-</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-users"></i>
+                        <span id="eventVagas">- vagas</span>
+                    </div>
+                </div>
 
-                <div class="event-description">
-                    <h3>Sobre o Evento</h3>
-                    <p id="eventDescription">Carregando descrição...</p>
-                </div>
+                <div class="event-description">
+                    <h3>Sobre o Evento</h3>
+                    <p id="eventDescription">Carregando descrição...</p>
+                </div>
 
-                <!-- Botão de Inscrição -->
-                <div class="action-container">
-                    <button id="inscricaoBtn" class="btn-inscricao" onclick="inscreverEvento()">
-                        <i class="fas fa-check-circle"></i>
-                        Inscrever-se
-                    </button>
-                    <p id="statusMessage" class="status-message"></p>
-                </div>
-            </div>
-        </div>
-    </main>
+                                <div class="action-container">
+                    <button id="inscricaoBtn" class="btn-inscricao" onclick="inscreverEvento()">
+                        <i class="fas fa-check-circle"></i>
+                        Inscrever-se
+                    </button>
+                    <p id="statusMessage" class="status-message"></p>
+                </div>
+            </div>
+        </div>
+    </main>
 
-    <script src="js/detalhes-evento.js"></script>
+    <script src="js/detalhes-evento.js"></script>
 </body>
 </html>

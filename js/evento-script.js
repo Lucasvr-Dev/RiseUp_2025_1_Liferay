@@ -1,108 +1,104 @@
 // =====================
-// (NOVO) 1. VERIFICAÇÃO DE SEGURANÇA (ROTA PROTEGIDA)
+// 1. VERIFICAÇÃO DE SEGURANÇA (ROTA PROTEGIDA)
 // =====================
-// Pega o token salvo no login
 const token = localStorage.getItem("authToken");
 if (!token) {
-    // Se NÃO HÁ token, não prossiga.
-    // Redireciona para a tela de login.
     alert("Você precisa estar logado para criar um evento.");
     window.location.href = "login.html";
 }
 
 
 // =====================
-// FUNÇÕES HELPERS (sem alteração)
+// FUNÇÕES HELPERS
 // =====================
 function voltarPagina() {
-  window.history.back();
+  window.history.back();
 }
 
 function converterDataParaISO(dataString) {
-  if (!dataString) return null;
-  const partes = dataString.split("/");
-  if (partes.length === 3) {
-    return `${partes[2]}-${partes[1]}-${partes[0]}`;
-  }
-  return dataString;
+  if (!dataString) return null;
+  const partes = dataString.split("/");
+  if (partes.length === 3) {
+    return `${partes[2]}-${partes[1]}-${partes[0]}`;
+  }
+  return dataString;
 }
 
 // =====================
-// LISTENER DO FORMULÁRIO (com alterações)
+// LISTENER DO FORMULÁRIO (CORRIGIDO)
 // =====================
 document
-  .getElementById("eventoForm")
-  .addEventListener("submit", async function (e) {
-    e.preventDefault();
+  .getElementById("eventoForm")
+  .addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-    // Coleta dos dados (sem alteração)
-    const dataInput = document.getElementById("data").value;
-    const horaInput = document.getElementById("hora").value;
+    const dataInput = document.getElementById("data").value;
+    const horaInput = document.getElementById("hora").value;
 
-    const formData = {
-      nome: document.getElementById("nomeEvento").value,
-      descricao: document.getElementById("descricao").value,
-      data: converterDataParaISO(dataInput),
-      hora: horaInput ? horaInput + ":00" : null, // Adicionado um check para hora vazia
-      local: document.getElementById("local").value,
-      categoria: document.getElementById("categoria").value,
-      vagas: document.getElementById("vagas").value
-        ? parseInt(document.getElementById("vagas").value)
-        : null,
-    };
+    const formData = {
+      nome: document.getElementById("nomeEvento").value,
+      descricao: document.getElementById("descricao").value,
+      data: converterDataParaISO(dataInput),
+      hora: horaInput ? horaInput + ":00" : null,
+      local: document.getElementById("local").value,
+      categoria: document.getElementById("categoria").value,
+      vagas: document.getElementById("vagas").value
+        ? parseInt(document.getElementById("vagas").value)
+        : null,
+    };
 
-    console.log("Dados enviados (JSON):", formData);
+    console.log("Dados enviados (JSON):", formData);
 
-    try {
-      const resposta = await fetch("http://localhost:8080/api/eventos/criar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          // =====================
-          // (ALTERADO) 2. ENVIO DO TOKEN
-          // Esta é a linha mais importante.
-          // =====================
+    try {
+      const resposta = await fetch("http://localhost:8080/api/eventos/criar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
           "Authorization": "Bearer " + token
-        },
-        body: JSON.stringify(formData),
-      });
+        },
+        body: JSON.stringify(formData),
+      });
 
-      // =====================
-      // (ALTERADO) 3. MELHORIA NO TRATAMENTO DE ERRO
-      // =====================
+      
       if (resposta.ok) { // Status 200-299
-        // Sucesso
-        window.location.href = "confirmacao.html";
+        // --- MUDANÇA AQUI ---
+        // 1. Precisamos ler o evento que o backend acabou de salvar
+        const eventoSalvo = await resposta.json(); 
+
+        // 2. Salve o evento no localStorage para a página de confirmação
+        localStorage.setItem('eventoRecemCriado', JSON.stringify(eventoSalvo));
+
+        // 3. Agora sim, redirecione
+        window.location.href = "confirmacao.html";
+        // --- FIM DA MUDANÇA ---
 
       } else if (resposta.status === 401 || resposta.status === 403) {
-        // Erro de autenticação (token expirou ou é inválido)
         alert("Sua sessão expirou. Faça login novamente.");
-        localStorage.removeItem("authToken"); // Limpa o token inválido
-        window.location.href = "login.html"; // Manda para o login
+        localStorage.removeItem("authToken");
+        window.location.href = "login.html";
 
       } else {
-        // Outros erros (ex: 400 - Bad Request, 500 - Server Error)
-        const erroDetalhado = await resposta
-          .json()
-          .catch(() => ({ message: resposta.statusText }));
-        console.error("Erro do servidor:", erroDetalhado);
-        throw new Error(
-          "Falha ao criar evento. Detalhes: " + (erroDetalhado.message || "Erro desconhecido")
-        );
+        const erroDetalhado = await resposta
+          .json()
+          .catch(() => ({ message: resposta.statusText }));
+        console.error("Erro do servidor:", erroDetalhado);
+        throw new Error(
+          "Falha ao criar evento. Detalhes: " + (erroDetalhado.message || "Erro desconhecido")
+        );
       }
 
-    } catch (erro) {
-      console.error("Erro na requisição:", erro);
-      alert(
-        "Ocorreu um erro ao criar o evento. Verifique o console do navegador para mais detalhes."
-      );
-    }
-  });
+    } catch (erro) {
+      console.error("Erro na requisição:", erro);
+      alert(
+        "Ocorreu um erro ao criar o evento. Verifique o console do navegador para mais detalhes."
+      );
+    }
+  });
 
 // =====================
-// CONFIGURAÇÃO DA DATA MÍNIMA (sem alteração)
+// CONFIGURAÇÃO DA DATA MÍNIMA
 // =====================
 document.addEventListener("DOMContentLoaded", function () {
-  const hoje = new Date().toISOString().split("T")[0];
-  document.getElementById("data").setAttribute("min", hoje);
+  const hoje = new Date().toISOString().split("T")[0];
+  document.getElementById("data").setAttribute("min", hoje);
 });

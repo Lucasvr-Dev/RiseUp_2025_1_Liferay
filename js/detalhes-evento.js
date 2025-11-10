@@ -1,28 +1,78 @@
+// ===============================================
+// URLs do Servidor (Certifique-se de que estão corretas)
+// ===============================================
+const API_URL = "http://localhost:8080/api"; 
+const SERVER_URL = "http://localhost:8080"; 
+
 // =====================
-// (NOVO) 1. VERIFICAÇÃO DE SEGURANÇA (ROTA PROTEGIDA)
+// 1. VERIFICAÇÃO DE SEGURANÇA (ROTA PROTEGIDA)
 // =====================
 const token = localStorage.getItem("authToken");
 if (!token) {
-    alert("Você precisa estar logado para ver os detalhes de um evento.");
-    window.location.href = "login.html";
+    alert("Você precisa estar logado para ver os detalhes de um evento.");
+    window.location.href = "login.html";
 }
-
-// =====================
-// ID DO USUÁRIO
-// =====================
-// ID do usuário logado (em produção, isso viria da sessão)
-// NOTA: Como você logou com 'teste@email.com', que é o ID 1, isso funcionará.
-// No futuro, o ideal é pegar esse ID do localStorage (que salvamos no login).
-const USUARIO_ID = 1;
 
 // Variável global para armazenar dados do evento
 let eventoAtual = null;
 
 // =====================
+// FUNÇÃO PARA CARREGAR OS DADOS DO USUÁRIO (NOVA)
+// =====================
+async function carregarDadosUsuario() {
+    const PROFILE_API_URL = `${API_URL}/perfis/me`; 
+
+    if (!token) return;
+
+    try {
+        const response = await fetch(PROFILE_API_URL, {
+            method: 'GET',
+            headers: { 'Authorization': 'Bearer ' + token }
+        });
+
+        if (response.status === 401 || response.status === 403) {
+             console.error("Sessão expirada ao buscar perfil.");
+             return;
+        }
+
+        if (!response.ok) {
+            throw new Error('Falha ao carregar perfil.');
+        }
+
+        const perfil = await response.json();
+
+        // 1. Popula a foto e nome do perfil no header
+        const userImage = document.getElementById("user-avatar");
+        const userNameSpan = document.getElementById("user-name");
+
+        if (perfil.nomeCompleto && userNameSpan) {
+            // Usa o primeiro nome ou o nome completo
+            userNameSpan.textContent = perfil.nomeCompleto.split(" ")[0] || perfil.nomeCompleto; 
+        } else {
+             userNameSpan.textContent = "Visitante";
+        }
+
+        // 2. Popula a foto (usando a URL COMPLETA do servidor)
+        if (perfil.fotoPerfilUrl && userImage) {
+            // Adicionando cache buster para garantir que a foto mais recente apareça
+            const cacheBuster = `?t=${new Date().getTime()}`;
+            const urlCompleta = SERVER_URL + perfil.fotoPerfilUrl + cacheBuster; 
+            userImage.src = urlCompleta;
+        }
+
+    } catch (error) {
+        console.error('Erro ao carregar dados do usuário:', error);
+    }
+}
+
+
+// =====================
 // INICIALIZAÇÃO
 // =====================
-// Ao carregar a página, busca o evento pelo ID
 document.addEventListener('DOMContentLoaded', function () {
+    // CHAMA A FUNÇÃO DE PERFIL AQUI
+    carregarDadosUsuario(); 
+    
     const urlParams = new URLSearchParams(window.location.search);
     const eventoId = urlParams.get('id');
 
@@ -38,26 +88,25 @@ document.addEventListener('DOMContentLoaded', function () {
 // =====================
 async function carregarDetalhesEvento(eventoId) {
     try {
-        // (ALTERADO) Adiciona o cabeçalho de autorização
         const response = await fetch(`http://localhost:8080/api/eventos/${eventoId}`, {
-            method: 'GET',
-            headers: {
-                "Authorization": "Bearer " + token
-            }
-        });
+            method: 'GET',
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
 
-        // (ALTERADO) Adiciona tratamento de erro de token
-        if (response.status === 401 || response.status === 403) {
-            alert("Sua sessão expirou. Faça login novamente.");
-            localStorage.removeItem("authToken");
-            window.location.href = "login.html";
-            return;
-        }
+        if (response.status === 401 || response.status === 403) {
+            alert("Sua sessão expirou. Faça login novamente.");
+            localStorage.removeItem("authToken");
+            window.location.href = "login.html";
+            return;
+        }
         if (!response.ok) throw new Error('Erro ao buscar evento.');
 
         eventoAtual = await response.json();
         preencherDetalhesEvento(eventoAtual);
-        verificarStatusInscricao(eventoId); // Chama a próxima função
+        
+        verificarStatusInscricao(eventoId); 
     } catch (erro) {
         console.error('Erro ao carregar evento:', erro);
         mostrarErro('Erro ao carregar evento.');
@@ -69,21 +118,19 @@ async function carregarDetalhesEvento(eventoId) {
 // =====================
 async function verificarStatusInscricao(eventoId) {
     try {
-        // (ALTERADO) Adiciona o cabeçalho de autorização
-        const response = await fetch(`http://localhost:8080/api/eventos/${eventoId}/inscricoes/${USUARIO_ID}/status`, {
-            method: 'GET',
-            headers: {
-                "Authorization": "Bearer " + token
-            }
-        });
+        const response = await fetch(`http://localhost:8080/api/eventos/${eventoId}/status`, {
+            method: 'GET',
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
 
-        // (ALTERADO) Adiciona tratamento de erro de token (necessário aqui também)
-        if (response.status === 401 || response.status === 403) {
-            alert("Sua sessão expirou (check status). Faça login novamente.");
-            localStorage.removeItem("authToken");
-            window.location.href = "login.html";
-            return;
-        }
+        if (response.status === 401 || response.status === 403) {
+            alert("Sua sessão expirou (check status). Faça login novamente.");
+            localStorage.removeItem("authToken");
+            window.location.href = "login.html";
+            return;
+        }
 
         if (response.ok) {
             const status = await response.json();
@@ -106,44 +153,40 @@ async function inscreverEvento() {
         const urlParams = new URLSearchParams(window.location.search);
         const eventoId = urlParams.get('id');
 
-        // (ALTERADO) Adiciona o cabeçalho de autorização
-        const response = await fetch(`http://localhost:8080/api/eventos/${eventoId}/inscricoes`, {
+        const response = await fetch(`http://localhost:8080/api/eventos/${eventoId}/inscrever`, {
             method: 'POST',
             headers: { 
-                'Content-Type': 'application/json',
-                "Authorization": "Bearer " + token
-            },
-            body: JSON.stringify({ usuarioId: USUARIO_ID })
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
         });
-
-        // (ALTERADO) Adiciona tratamento de erro de token
-        const resultado = await response.json();
-        if (response.status === 401 || response.status === 403) {
-             alert("Sua sessão expirou (inscrição). Faça login novamente.");
-             localStorage.removeItem("authToken");
-             window.location.href = "login.html";
-             return;
-        }
-
-        if (response.ok) {
-            mostrarConfirmacaoInscricao(eventoAtual);
-        } else {
-            msg.textContent = resultado.mensagem || 'Erro ao se inscrever.';
-            btn.disabled = false;
+        
+         if (response.status === 401 || response.status === 403) {
+             alert("Sua sessão expirou (inscrição). Faça login novamente.");
+             localStorage.removeItem("authToken");
+             window.location.href = "login.html";
+             return;
+         }
+         
+        if (!response.ok) {
+             const resultadoErro = await response.json();
+             throw new Error(resultadoErro.erro || 'Erro desconhecido');
         }
+         
+        mostrarConfirmacaoInscricao(eventoAtual);
+        
     } catch (erro) {
         console.error('Erro na inscrição:', erro);
-        msg.textContent = 'Erro ao conectar ao servidor.';
+        msg.textContent = `Erro: ${erro.message}`; 
         btn.disabled = false;
     }
 }
 
 
 // =====================
-// FUNÇÕES AUXILIARES (Sem alteração)
+// FUNÇÕES AUXILIARES
 // =====================
 
-// Preenche as informações do evento
 function preencherDetalhesEvento(evento) {
     document.getElementById('eventName').textContent = evento.nome;
     document.getElementById('eventDescription').textContent = evento.descricao;
@@ -166,7 +209,6 @@ function preencherDetalhesEvento(evento) {
     }
 }
 
-// Atualiza o botão de acordo com o status
 function atualizarBotaoInscricao(status) {
     const btn = document.getElementById('inscricaoBtn');
     const msg = document.getElementById('statusMessage');
@@ -186,7 +228,6 @@ function atualizarBotaoInscricao(status) {
     }
 }
 
-// Redireciona para página de confirmação
 function mostrarConfirmacaoInscricao(evento) {
     localStorage.setItem('inscricaoRealizada', JSON.stringify({
         eventoNome: evento.nome,
@@ -198,19 +239,17 @@ function mostrarConfirmacaoInscricao(evento) {
     window.location.href = 'inscricao-confirmacao.html';
 }
 
-// Funções auxiliares
 function formatarData(data) {
-    if (!data) return "--/--/----";
+    if (!data) return "--/--/----";
     const partes = data.split('-');
-    if (partes.length < 3) return data;
+    if (partes.length < 3) return data;
     return `${partes[2]}/${partes[1]}/${partes[0]}`;
 }
 
 function mostrarErro(mensagem) {
     document.getElementById('eventName').textContent = 'Erro';
     document.getElementById('eventDescription').textContent = mensagem;
-    
-    // Esconde o botão se der erro
-    const btn = document.getElementById('inscricaoBtn');
-    if (btn) btn.style.display = 'none';
+    
+    const btn = document.getElementById('inscricaoBtn');
+    if (btn) btn.style.display = 'none';
 }
